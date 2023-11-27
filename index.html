@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Recommendation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="file"] {
+            padding: 5px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        // Function to update category options based on the selected gender
+        function updateCategories() {
+            var gender = document.getElementById("gender").value;
+            var categorySelect = document.getElementById("category");
+
+            // Clear existing options
+            categorySelect.innerHTML = "";
+
+            // Add new options based on the selected gender
+            if (gender === "female") {
+                addOption(categorySelect, "gown", "Gown");
+                addOption(categorySelect, "jumpsuit", "Jumpsuit");
+                addOption(categorySelect, "skirt", "Skirt");
+            } else if (gender === "male") {
+                addOption(categorySelect, "trousers", "Trousers");
+                addOption(categorySelect, "shirt", "Shirt");
+                addOption(categorySelect, "jacket", "Jacket");
+            }
+        }
+
+        // Helper function to add an option to a select element
+        function addOption(selectElement, value, text) {
+            var option = document.createElement("option");
+            option.value = value;
+            option.text = text;
+            selectElement.add(option);
+        }
+    </script>
+</head>
+<body>
+    <h1>Clothing Recommendation System</h1>
+    <form action="/recommend" method="post" enctype="multipart/form-data">
+        <label for="gender">Select Gender:</label>
+        <select name="gender" id="gender" onchange="updateCategories()">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <br>
+        <label for="category">Select Category:</label>
+        <select name="category" id="category">
+            <!-- Options will be dynamically added here -->
+        </select>
+        <br>
+        <label for="pattern_image">Upload Pattern Image:</label>
+        <input type="file" name="pattern_image" accept=".jpg, .jpeg, .png">
+        <br>
+        <label for="measurements">Enter Measurements:</label>
+        <input type="text" name="measurements" placeholder="e.g., height, weight, etc.">
+        <br>
+        <button type="submit">Get Recommendation</button>
+    </form>
+</body>
+</html>
